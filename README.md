@@ -1,6 +1,6 @@
 
-[![pub package](https://img.shields.io/pub/v/formatted_text.svg)](https://pub.dartlang.org/packages/formatted_text)
-[![MIT License](https://img.shields.io/badge/License-BSD-purple.svg)](https://github.com/NirmalAriyathilake/formatted_text/blob/main/LICENSE)
+[![pub package](https://img.shields.io/pub/v/formatted_text?color=orange)](https://pub.dartlang.org/packages/formatted_text)
+[![BSD-3-Clause License](https://img.shields.io/github/license/NirmalAriyathilake/formatted_text)](https://github.com/NirmalAriyathilake/formatted_text/blob/main/LICENSE)
 
 - [Introduction](#introduction)
 - [Getting Started](#getting-Started)
@@ -24,9 +24,9 @@
 
 ### Packages
 
-formatted_text          - [![pub package](https://img.shields.io/static/v1?label=formatted_text&message=v1.0.0&color=orange)](https://pub.dartlang.org/packages/formatted_text)
+formatted_text          - [![Formatted Text Package](https://img.shields.io/pub/v/formatted_text?color=orange&label=formatted_text)](https://pub.dartlang.org/packages/formatted_text)
 
-formatted_text_hooks    - [![pub package](https://img.shields.io/static/v1?label=formatted_text_hooks&message=v1.0.0&color=orange)](https://pub.dartlang.org/packages/formatted_text_hooks)
+formatted_text_hooks    - [![Formatted Text Hooks Package](https://img.shields.io/pub/v/formatted_text_hooks?color=orange&label=formatted_text_hooks)](https://pub.dartlang.org/packages/formatted_text_hooks)
 
 ## Getting Started
 
