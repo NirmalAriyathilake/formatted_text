@@ -1,3 +1,4 @@
+
 [![pub package](https://img.shields.io/pub/v/formatted_text.svg)](https://pub.dartlang.org/packages/formatted_text)
 [![MIT License](https://img.shields.io/badge/License-BSD-purple.svg)](https://github.com/NirmalAriyathilake/formatted_text/blob/main/LICENSE)
 
