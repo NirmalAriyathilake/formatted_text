@@ -30,6 +30,7 @@ class FormattedText extends StatelessWidget {
   final String data;
 
   final List<FormattedTextFormatter>? formatters;
+
   /// Used to select a font when the same Unicode character can
   /// be rendered differently, depending on the locale.
   ///

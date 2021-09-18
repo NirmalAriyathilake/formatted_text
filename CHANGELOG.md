@@ -1,3 +1,8 @@
-# 1.0.0
+# 1.0.0+1
 
-* Initial release.
+* README fix
+* Code Format fix
+
+## 1.0.0
+
+* Initial release

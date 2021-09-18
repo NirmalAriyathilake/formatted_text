@@ -190,7 +190,8 @@ class _FormattedTextToolbarState extends State<FormattedTextToolbar> {
             label: localizations.selectAllButtonLabel,
             onPressed: widget.handleSelectAll!,
           ),
-        for (final item in widget.items ?? FormattedTextDefaults.formattedTextToolbarDefaultActions)
+        for (final item in widget.items ??
+            FormattedTextDefaults.formattedTextToolbarDefaultActions)
           _buildToolbarButton(
             label: item.label,
             patternChars: item.patternChars,

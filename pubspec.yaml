@@ -1,5 +1,7 @@
 name: formatted_text
-description: A simple text formatting package.
+description: >
+  A simple text formatting package.
+  Use to format text in TextField and Text widgets
 version: 1.0.0
 homepage: https://github.com/NirmalAriyathilake/formatted_text
 
