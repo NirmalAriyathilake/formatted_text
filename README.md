@@ -1,5 +1,5 @@
 [![pub package](https://img.shields.io/pub/v/formatted_text.svg)](https://pub.dartlang.org/packages/formatted_text)
-[![MIT License](https://img.shields.io/badge/License-BSD-purple.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![MIT License](https://img.shields.io/badge/License-BSD-purple.svg)](https://github.com/NirmalAriyathilake/formatted_text/blob/main/LICENSE)
 
 - [Introduction](#introduction)
 - [Getting Started](#getting-Started)
@@ -65,7 +65,7 @@ import 'package:formatted_text_hooks/formatted_text_hooks.dart';
 FormattedText('*This text is bold*');
 ```
 
-![Bold Text Image](/raw/bold_text.png)
+![Bold Text Image](https://github.com/NirmalAriyathilake/formatted_text/tree/main/raw/bold_text.png)
 
 #### Italic
 
@@ -73,7 +73,7 @@ FormattedText('*This text is bold*');
 FormattedText('_This text is Italic_');
 ```
 
-![Bold Text Image](/raw/italic_text.png)
+![Bold Text Image](https://github.com/NirmalAriyathilake/formatted_text/tree/main/raw/italic_text.png)
 
 Strikethrough (`~`) and Underline (`#`) are also available as default formatters
 
