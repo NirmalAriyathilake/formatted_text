@@ -10,11 +10,7 @@
   - [Custom Formatters](#custom-formatters)
   - [Custom Toolbar Actions](#custom-toolbar-actions)
 
-</br>
-
 ## Introduction
-
----
 
 - Formatted Text is a Text formatting package.
 - Under the hood this package use regex for matching patterns and applying `TextStyle` provided for each pattern.
@@ -25,19 +21,13 @@
   - Text Editing Controller
   - Selection toolbar
 
-</br>
-
 ### Packages
 
 formatted_text          - [![pub package](https://img.shields.io/static/v1?label=formatted_text&message=v1.0.0&color=orange)](https://pub.dartlang.org/packages/formatted_text)
 
 formatted_text_hooks    - [![pub package](https://img.shields.io/static/v1?label=formatted_text_hooks&message=v1.0.0&color=orange)](https://pub.dartlang.org/packages/formatted_text_hooks)
 
-</br>
-
 ## Getting Started
-
----
 
 ### Add as dependency
 
@@ -53,8 +43,6 @@ dependencies:
   formatted_text_hooks: [latest-version]   
 ```
 
-</br>
-
 ### Import package
 
 ```dart
@@ -67,15 +55,9 @@ If using `formatted_text_hooks`
 import 'package:formatted_text_hooks/formatted_text_hooks.dart';
 ```
 
-</br>
-
 ## Usage examples
 
----
-
 ### Text View
-
-</br>
 
 #### Bold
 
@@ -95,8 +77,6 @@ FormattedText('_This text is Italic_');
 
 Strikethrough (`~`) and Underline (`#`) are also available as default formatters
 
-</br>
-
 ### Text Editing Controller
 
 ```dart
@@ -109,11 +89,7 @@ or
 final textEditingController = useFormattedTextController();
 ```
 
-</br>
-
 ### Selection controls
-
-</br>
 
 To display custom selection controls,
 
@@ -132,8 +108,6 @@ toolbarOptions: ToolbarOptions(
 )
 ```
 
-</br>
-
 ### Custom Formatters
 
 - Providing custom formatters will override the default formatters.
@@ -151,8 +125,6 @@ FormattedText(
   ],
 )
 ```
-
-</br>
 
 ### Custom Toolbar Actions
 
