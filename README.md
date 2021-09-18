@@ -65,7 +65,7 @@ import 'package:formatted_text_hooks/formatted_text_hooks.dart';
 FormattedText('*This text is bold*');
 ```
 
-![Bold Text Image](https://github.com/NirmalAriyathilake/formatted_text/blob/master/resources/bold_text.png?raw=true)
+![Bold Text Image](https://github.com/NirmalAriyathilake/formatted_text/blob/main/resources/bold_text.png?raw=true)
 
 #### Italic
 
@@ -73,7 +73,7 @@ FormattedText('*This text is bold*');
 FormattedText('_This text is Italic_');
 ```
 
-![Bold Text Image](https://github.com/NirmalAriyathilake/formatted_text/blob/master/resources/italic_text.png?raw=true)
+![Italic Text Image](https://github.com/NirmalAriyathilake/formatted_text/blob/main/resources/italic_text.png?raw=true)
 
 Strikethrough (`~`) and Underline (`#`) are also available as default formatters
 
@@ -126,7 +126,7 @@ FormattedText(
 )
 ```
 
-![Custom Formatter Image - Orange Text](https://github.com/NirmalAriyathilake/formatted_text/blob/master/resources/custom_formatter.png?raw=true)
+![Custom Formatter Image - Orange Text](https://github.com/NirmalAriyathilake/formatted_text/blob/main/resources/custom_formatter.png?raw=true)
 
 ### Custom Toolbar Actions
 
