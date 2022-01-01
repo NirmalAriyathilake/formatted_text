@@ -15,7 +15,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   
   formatted_text:
-    path: ../../formatted_text
+    path: ../
 
 dev_dependencies:
   flutter_test:

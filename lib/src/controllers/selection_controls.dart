@@ -50,7 +50,8 @@ class FormattedTextSelectionControls extends MaterialTextSelectionControls {
       handleCopy: canCopy(delegate)
           ? () => handleCopy(delegate, clipboardStatus)
           : null,
-      handleCut: canCut(delegate) ? () => handleCut(delegate) : null,
+      handleCut:
+          canCut(delegate) ? () => handleCut(delegate, clipboardStatus) : null,
       handlePaste: canPaste(delegate) ? () => handlePaste(delegate) : null,
       handleSelectAll:
           canSelectAll(delegate) ? () => handleSelectAll(delegate) : null,
@@ -144,7 +145,7 @@ class _FormattedTextToolbarState extends State<FormattedTextToolbar> {
           offset: value.selection.end + (2 * patternChars.length),
         ),
       ),
-      SelectionChangedCause.toolBar,
+      SelectionChangedCause.toolbar,
     );
     widget.delegate
         .bringIntoView(widget.delegate.textEditingValue.selection.extent);
