@@ -5,7 +5,6 @@ import '../constants/defaults.dart';
 import '../models/toolbar_action.dart';
 
 class FormattedTextSelectionControls extends MaterialTextSelectionControls {
-  // Padding between the toolbar and the anchor.
   FormattedTextSelectionControls({
     this.actions,
   });
@@ -17,14 +16,15 @@ class FormattedTextSelectionControls extends MaterialTextSelectionControls {
 
   @override
   Widget buildToolbar(
-      BuildContext context,
-      Rect globalEditableRegion,
-      double textLineHeight,
-      Offset selectionMidpoint,
-      List<TextSelectionPoint> endpoints,
-      TextSelectionDelegate delegate,
-      ClipboardStatusNotifier clipboardStatus,
-      Offset? lastSecondaryTapDownPosition) {
+    BuildContext context,
+    Rect globalEditableRegion,
+    double textLineHeight,
+    Offset selectionMidpoint,
+    List<TextSelectionPoint> endpoints,
+    TextSelectionDelegate delegate,
+    ClipboardStatusNotifier? clipboardStatus,
+    Offset? lastSecondaryTapDownPosition,
+  ) {
     final TextSelectionPoint startTextSelectionPoint = endpoints[0];
     final TextSelectionPoint endTextSelectionPoint =
         endpoints.length > 1 ? endpoints[1] : endpoints[0];
@@ -75,7 +75,7 @@ class FormattedTextToolbar extends StatefulWidget {
 
   final Offset anchorAbove;
   final Offset anchorBelow;
-  final ClipboardStatusNotifier clipboardStatus;
+  final ClipboardStatusNotifier? clipboardStatus;
   final TextSelectionDelegate delegate;
   final VoidCallback? handleCopy;
   final VoidCallback? handleCut;
@@ -84,34 +84,33 @@ class FormattedTextToolbar extends StatefulWidget {
   final List<FormattedTextToolbarAction>? items;
 
   @override
-  _FormattedTextToolbarState createState() => _FormattedTextToolbarState();
+  FormattedTextToolbarState createState() => FormattedTextToolbarState();
 }
 
-class _FormattedTextToolbarState extends State<FormattedTextToolbar> {
+class FormattedTextToolbarState extends State<FormattedTextToolbar> {
   @override
   void didUpdateWidget(FormattedTextToolbar oldWidget) {
     super.didUpdateWidget(oldWidget);
 
     if (widget.clipboardStatus != oldWidget.clipboardStatus) {
-      widget.clipboardStatus.addListener(_onChangedClipboardStatus);
-      oldWidget.clipboardStatus.removeListener(_onChangedClipboardStatus);
+      widget.clipboardStatus?.addListener(_onChangedClipboardStatus);
+      oldWidget.clipboardStatus?.removeListener(_onChangedClipboardStatus);
     }
-    widget.clipboardStatus.update();
+    widget.clipboardStatus?.update();
   }
 
   @override
   void dispose() {
-    if (!widget.clipboardStatus.disposed) {
-      widget.clipboardStatus.removeListener(_onChangedClipboardStatus);
-    }
     super.dispose();
+
+    widget.clipboardStatus?.removeListener(_onChangedClipboardStatus);
   }
 
   @override
   void initState() {
     super.initState();
-    widget.clipboardStatus.addListener(_onChangedClipboardStatus);
-    widget.clipboardStatus.update();
+    widget.clipboardStatus?.addListener(_onChangedClipboardStatus);
+    widget.clipboardStatus?.update();
   }
 
   void _onChangedClipboardStatus() {
@@ -138,9 +137,8 @@ class _FormattedTextToolbarState extends State<FormattedTextToolbar> {
 
     widget.delegate.userUpdateTextEditingValue(
       TextEditingValue(
-        text: value.selection.textBefore(value.text) +
-            '$patternChars${value.selection.textInside(value.text)}$patternChars' +
-            value.selection.textAfter(value.text),
+        text:
+            '${value.selection.textBefore(value.text)}$patternChars${value.selection.textInside(value.text)}$patternChars${value.selection.textAfter(value.text)}',
         selection: TextSelection.collapsed(
           offset: value.selection.end + (2 * patternChars.length),
         ),
@@ -181,7 +179,7 @@ class _FormattedTextToolbarState extends State<FormattedTextToolbar> {
             onPressed: widget.handleCopy!,
           ),
         if (widget.handlePaste != null &&
-            widget.clipboardStatus.value == ClipboardStatus.pasteable)
+            widget.clipboardStatus?.value == ClipboardStatus.pasteable)
           _buildToolbarButton(
             label: localizations.pasteButtonLabel,
             onPressed: widget.handlePaste!,
