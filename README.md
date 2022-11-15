@@ -10,6 +10,9 @@
   - [Selection controls](#selection-controls)
   - [Custom Formatters](#custom-formatters)
   - [Custom Toolbar Actions](#custom-toolbar-actions)
+- [Note](#note)
+- [Issues](#issues)
+- [Author](#author)
 
 ## Introduction
 
@@ -92,7 +95,7 @@ FormattedText('_This is *Bold Italic* Italic_');
 final textEditingController = FormattedTextEditingController();
 ```
 
-or
+or with hooks
 
 ```dart
 final textEditingController = useFormattedTextController();
@@ -152,3 +155,17 @@ selectionControls: FormattedTextSelectionControls(
   ],
 )
 ```
+
+## Note
+
+* All formatter patterns must be distinctive
+* Child patterns which are already applied will be consider as normal text
+* Child styles should be able to merged with parent styles
+
+## Issues
+
+Please file any issues, bugs or feature requests as an issue on our [GitHub](https://github.com/NirmalAriyathilake/formatted_text/issues) page.
+
+## Author
+
+This Country IP package is developed by [NirmalCode](https://nirmalcode.com).
