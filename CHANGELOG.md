@@ -1,3 +1,9 @@
+## 3.0.0
+
+* Multi-styling substring
+* Remove regex-based style matching
+* Fix: All substring styles merged together and applied to the whole text
+
 ## 2.0.0
 
 * Fix FormattedTextSelectionControls.buildToolbar issue

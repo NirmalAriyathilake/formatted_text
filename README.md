@@ -14,8 +14,8 @@
 ## Introduction
 
 - Formatted Text is a Text formatting package.
-- Under the hood this package use regex for matching patterns and applying `TextStyle` provided for each pattern.
 - One text can be wrapped aroung with multiple patterns to apply multiple `TextStyles` merged together. ( All `TextStyles` should be able to merged together )
+- Individual wrappers can be applied to substring and they will be merged with parenet wrapper style. ( All `TextStyles` should be able to merged together )
 
 - This package includes,
   - Text View
@@ -30,7 +30,7 @@ formatted_text_hooks    - [![Formatted Text Hooks Package](https://img.shields.i
 
 ## Getting Started
 
-### Add as dependency
+### Add as a dependency
 
 ```yaml
 dependencies:    
@@ -78,6 +78,14 @@ FormattedText('_This text is Italic_');
 
 Strikethrough (`~`) and Underline (`#`) are also available as default formatters
 
+#### Multi styling substrings
+
+```dart
+FormattedText('_This is *Bold Italic* Italic_');
+```
+
+![Multistyling substring Image](https://github.com/NirmalAriyathilake/formatted_text/blob/main/resources/multistyling_substring.png?raw=true)
+
 ### Text Editing Controller
 
 ```dart
@@ -112,7 +120,6 @@ toolbarOptions: ToolbarOptions(
 ### Custom Formatters
 
 - Providing custom formatters will override the default formatters.
-- Formatters use regex for finding matches. Escape `patternChars` except the first char.
 
 ```dart
 FormattedText(
