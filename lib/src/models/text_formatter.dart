@@ -1,17 +1,23 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 
-class FormattedTextFormatter {
+class FormattedTextFormatter extends Equatable {
   const FormattedTextFormatter({
     required this.patternChars,
     required this.style,
-  }) : pattern = r'\' +
-            patternChars +
-            '([^\\' +
-            patternChars +
-            ']+)\\' +
-            patternChars;
+  });
 
-  final String pattern;
   final String patternChars;
   final TextStyle style;
+
+  @override
+  List<Object?> get props => [
+        patternChars,
+        style,
+      ];
+
+  @override
+  String toString() {
+    return 'FormattedTextFormatter(patternChars: $patternChars, style: $style)';
+  }
 }

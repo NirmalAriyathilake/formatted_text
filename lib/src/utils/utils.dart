@@ -12,76 +12,157 @@ mixin FormattedTextUtils {
     List<FormattedTextFormatter>? formatters,
   }) {
     final List<InlineSpan> children = [];
-    final Pattern pattern = RegExp(
-        (formatters ?? FormattedTextDefaults.formattedTextDefaultFormatters)
-            .map((formatter) => formatter.pattern)
-            .join('|'),
-        multiLine: true);
+    final appliedStyles = <TextStyle>[style ?? const TextStyle()];
+    final appliedFormatters = <FormattedTextFormatter>[];
 
-    data.splitMapJoin(
-      pattern,
-      onMatch: (Match match) {
-        final matchStr = match[0] ?? '';
+    /// Custom formatters or default formatters
+    final dataFormatters = List<FormattedTextFormatter>.from(
+        formatters ?? FormattedTextDefaults.formattedTextDefaultFormatters);
 
-        TextStyle myStyle = const TextStyle();
-        int prefixLength = 0;
+    /// Sorted formatters according to pattern length
+    /// to get the best pattern match first
+    dataFormatters.sort(
+      (a, b) => b.patternChars.length.compareTo(a.patternChars.length),
+    );
 
-        for (final entry in (formatters ??
-            FormattedTextDefaults.formattedTextDefaultFormatters)) {
-          final pattern = entry.pattern;
-          if (RegExp(pattern).hasMatch(matchStr)) {
-            myStyle = myStyle.merge(entry.style);
-            prefixLength += entry.patternChars.length;
+    /// formatter patterns joined into a string
+    final dataFormattersChars =
+        dataFormatters.map((e) => e.patternChars).join();
+
+    String currentDataSubstring = '';
+    bool formatterFound = false;
+
+    /// Go through each char
+    int i = 0;
+
+    // To avoid neverending loop
+    int safetyCount = 0;
+
+    while (i < data.length && safetyCount < data.length) {
+      safetyCount++;
+
+      /// If the data char not part of formatter patterns
+      /// Failing this check doesn't mean it is a formatter pattern
+      if (!dataFormattersChars.contains(data[i])) {
+        currentDataSubstring += data[i];
+
+        i++;
+        continue;
+      }
+
+      /// Check if match the current fomatter
+      if (appliedFormatters.isNotEmpty) {
+        final lastFormatter = appliedFormatters.last;
+
+        if ((i + appliedFormatters.last.patternChars.length) <= data.length) {
+          final substring =
+              data.substring(i, i + lastFormatter.patternChars.length);
+
+          if (substring == lastFormatter.patternChars) {
+            final currentStyle = appliedStyles.removeLast();
+
+            children.add(TextSpan(
+              text: currentDataSubstring,
+              style: currentStyle,
+            ));
+
+            /// Show closing pattern
+            if (showFormattingCharacters) {
+              children.add(TextSpan(
+                text: lastFormatter.patternChars,
+                style: currentStyle.copyWith(
+                    color: (currentStyle.color ?? Theme.of(context).hintColor)
+                        .withOpacity(0.2)),
+              ));
+            }
+
+            /// Reset
+            currentDataSubstring = '';
+            appliedFormatters.removeLast();
+
+            i += lastFormatter.patternChars.length;
+            continue;
           }
         }
+      }
 
-        final word =
-            matchStr.substring(prefixLength, matchStr.length - prefixLength);
+      /// For each formatter
+      formatterFound = false;
 
-        if (showFormattingCharacters) {
-          children.add(_getPrefixTextSpan(context, matchStr, prefixLength));
+      for (final formatter in dataFormatters) {
+        final formatterLength = formatter.patternChars.length;
+
+        /// If the formatter length exceed maximum possible pattern length
+        if (i + formatterLength > data.length) {
+          continue;
         }
 
-        children.add(TextSpan(
-          text: word,
-          style: style?.merge(myStyle) ?? myStyle,
-        ));
+        final substring = data.substring(i, i + formatterLength);
 
-        if (showFormattingCharacters) {
-          children.add(_getSuffixTextSpan(context, matchStr, prefixLength));
+        /// Check if the current char is part of the pattern
+        /// get the substring matching the length of the pattern and compare
+        if (substring == formatter.patternChars) {
+          // If the matched formatter is already applied but
+          // not the last applied formatter do nothing
+          if (appliedFormatters.contains(formatter)) {
+            break;
+          }
+
+          i += formatterLength;
+          formatterFound = true;
+
+          /// If an ongoing data is available apply the last style
+          /// before opening a new formattter
+          if (currentDataSubstring.isNotEmpty) {
+            final currentStyle = appliedStyles.last;
+
+            children.add(TextSpan(
+              text: currentDataSubstring,
+              style: currentStyle,
+            ));
+
+            /// Reset
+            currentDataSubstring = '';
+          }
+
+          /// Merge the current style and the formatter style
+          final newStyle = appliedStyles.last.merge(formatter.style);
+
+          appliedStyles.add(
+            newStyle,
+          );
+
+          appliedFormatters.add(formatter);
+
+          /// Show opening pattern
+          if (showFormattingCharacters) {
+            children.add(TextSpan(
+              text: formatter.patternChars,
+              style: newStyle.copyWith(
+                  color: (newStyle.color ?? Theme.of(context).hintColor)
+                      .withOpacity(0.2)),
+            ));
+          }
+
+          break;
         }
-        return "";
-      },
-      onNonMatch: (String text) {
-        children.add(TextSpan(text: text, style: style));
-        return "";
-      },
-    );
+      }
+
+      /// If no formatter applied
+      if (!formatterFound) {
+        currentDataSubstring += data[i];
+        i++;
+      }
+    }
+
+    /// if the current pattern is not closed yet apply the started pattern
+    if (currentDataSubstring.isNotEmpty) {
+      children.add(TextSpan(
+        text: currentDataSubstring,
+        style: appliedStyles.last,
+      ));
+    }
 
     return children;
-  }
-
-  static TextSpan _getPrefixTextSpan(
-      BuildContext context, String matchStr, int prefixLength) {
-    final prefix =
-        matchStr.substring(matchStr.length - prefixLength, matchStr.length);
-
-    return _buildCharTextSpan(context, prefix);
-  }
-
-  static TextSpan _getSuffixTextSpan(
-      BuildContext context, String matchStr, int suffixLength) {
-    final suffix = matchStr.substring(0, suffixLength);
-
-    return _buildCharTextSpan(context, suffix);
-  }
-
-  static TextSpan _buildCharTextSpan(BuildContext context, String char) {
-    return TextSpan(
-      text: char,
-      style: TextStyle(
-        color: Theme.of(context).hintColor.withOpacity(0.2),
-      ),
-    );
   }
 }

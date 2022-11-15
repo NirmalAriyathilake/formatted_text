@@ -1,4 +1,3 @@
-
 [![pub package](https://img.shields.io/pub/v/formatted_text?color=orange)](https://pub.dartlang.org/packages/formatted_text)
 [![BSD-3-Clause License](https://img.shields.io/github/license/NirmalAriyathilake/formatted_text)](https://github.com/NirmalAriyathilake/formatted_text/blob/main/LICENSE)
 
@@ -10,12 +9,15 @@
   - [Selection controls](#selection-controls)
   - [Custom Formatters](#custom-formatters)
   - [Custom Toolbar Actions](#custom-toolbar-actions)
+- [Note](#note)
+- [Issues](#issues)
+- [Author](#author)
 
 ## Introduction
 
 - Formatted Text is a Text formatting package.
-- Under the hood this package use regex for matching patterns and applying `TextStyle` provided for each pattern.
 - One text can be wrapped aroung with multiple patterns to apply multiple `TextStyles` merged together. ( All `TextStyles` should be able to merged together )
+- Child wrappers can be applied to substrings and they will be merged with parenet wrapper style. ( All `TextStyles` should be able to merged together )
 
 - This package includes,
   - Text View
@@ -24,24 +26,24 @@
 
 ### Packages
 
-formatted_text          - [![Formatted Text Package](https://img.shields.io/pub/v/formatted_text?color=orange&label=formatted_text)](https://pub.dartlang.org/packages/formatted_text)
+formatted_text - [![Formatted Text Package](https://img.shields.io/pub/v/formatted_text?color=orange&label=formatted_text)](https://pub.dartlang.org/packages/formatted_text)
 
-formatted_text_hooks    - [![Formatted Text Hooks Package](https://img.shields.io/pub/v/formatted_text_hooks?color=orange&label=formatted_text_hooks)](https://pub.dartlang.org/packages/formatted_text_hooks)
+formatted_text_hooks - [![Formatted Text Hooks Package](https://img.shields.io/pub/v/formatted_text_hooks?color=orange&label=formatted_text_hooks)](https://pub.dartlang.org/packages/formatted_text_hooks)
 
 ## Getting Started
 
-### Add as dependency
+### Add as a dependency
 
 ```yaml
-dependencies:    
-  formatted_text: [latest-version]   
+dependencies:
+  formatted_text: [latest-version]
 ```
 
 If you are using `flutter_hooks` use `formatted_text_hooks`
 
 ```yaml
-dependencies:  
-  formatted_text_hooks: [latest-version]   
+dependencies:
+  formatted_text_hooks: [latest-version]
 ```
 
 ### Import package
@@ -78,13 +80,21 @@ FormattedText('_This text is Italic_');
 
 Strikethrough (`~`) and Underline (`#`) are also available as default formatters
 
+#### Multi styling substrings
+
+```dart
+FormattedText('_This is *Bold Italic* Italic_');
+```
+
+![Multistyling substring Image](https://github.com/NirmalAriyathilake/formatted_text/blob/main/resources/multistyling_substring.png?raw=true)
+
 ### Text Editing Controller
 
 ```dart
 final textEditingController = FormattedTextEditingController();
 ```
 
-or
+or with hooks
 
 ```dart
 final textEditingController = useFormattedTextController();
@@ -112,7 +122,6 @@ toolbarOptions: ToolbarOptions(
 ### Custom Formatters
 
 - Providing custom formatters will override the default formatters.
-- Formatters use regex for finding matches. Escape `patternChars` except the first char.
 
 ```dart
 FormattedText(
@@ -145,3 +154,17 @@ selectionControls: FormattedTextSelectionControls(
   ],
 )
 ```
+
+## Note
+
+- All formatter patterns must be distinctive
+- Child patterns which are already applied will be considered normal text
+- Child styles should be able to merge with parent styles
+
+## Issues
+
+Please file any issues, bugs or feature requests as an issue on our [GitHub](https://github.com/NirmalAriyathilake/formatted_text/issues) page.
+
+## Author
+
+This Country IP package is developed by [NirmalCode](https://nirmalcode.com).
