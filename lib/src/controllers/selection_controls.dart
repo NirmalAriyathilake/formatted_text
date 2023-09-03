@@ -1,5 +1,5 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 import '../constants/defaults.dart';
 import '../models/toolbar_action.dart';
@@ -22,7 +22,7 @@ class FormattedTextSelectionControls extends MaterialTextSelectionControls {
     Offset selectionMidpoint,
     List<TextSelectionPoint> endpoints,
     TextSelectionDelegate delegate,
-    ClipboardStatusNotifier? clipboardStatus,
+    ValueListenable<ClipboardStatus>? clipboardStatus,
     Offset? lastSecondaryTapDownPosition,
   ) {
     final TextSelectionPoint startTextSelectionPoint = endpoints[0];
@@ -36,9 +36,7 @@ class FormattedTextSelectionControls extends MaterialTextSelectionControls {
             _kToolbarContentDistance);
     final Offset anchorBelow = Offset(
       globalEditableRegion.left + selectionMidpoint.dx,
-      globalEditableRegion.top +
-          endTextSelectionPoint.point.dy +
-          _kToolbarContentDistanceBelow,
+      globalEditableRegion.top + endTextSelectionPoint.point.dy + _kToolbarContentDistanceBelow,
     );
 
     return FormattedTextToolbar(
@@ -47,14 +45,10 @@ class FormattedTextSelectionControls extends MaterialTextSelectionControls {
       clipboardStatus: clipboardStatus,
       delegate: delegate,
       items: actions,
-      handleCopy: canCopy(delegate)
-          ? () => handleCopy(delegate, clipboardStatus)
-          : null,
-      handleCut:
-          canCut(delegate) ? () => handleCut(delegate, clipboardStatus) : null,
+      handleCopy: canCopy(delegate) ? () => handleCopy(delegate) : null,
+      handleCut: canCut(delegate) ? () => handleCut(delegate) : null,
       handlePaste: canPaste(delegate) ? () => handlePaste(delegate) : null,
-      handleSelectAll:
-          canSelectAll(delegate) ? () => handleSelectAll(delegate) : null,
+      handleSelectAll: canSelectAll(delegate) ? () => handleSelectAll(delegate) : null,
     );
   }
 }
@@ -75,7 +69,7 @@ class FormattedTextToolbar extends StatefulWidget {
 
   final Offset anchorAbove;
   final Offset anchorBelow;
-  final ClipboardStatusNotifier? clipboardStatus;
+  final ValueListenable<ClipboardStatus>? clipboardStatus;
   final TextSelectionDelegate delegate;
   final VoidCallback? handleCopy;
   final VoidCallback? handleCut;
@@ -96,7 +90,6 @@ class FormattedTextToolbarState extends State<FormattedTextToolbar> {
       widget.clipboardStatus?.addListener(_onChangedClipboardStatus);
       oldWidget.clipboardStatus?.removeListener(_onChangedClipboardStatus);
     }
-    widget.clipboardStatus?.update();
   }
 
   @override
@@ -110,7 +103,6 @@ class FormattedTextToolbarState extends State<FormattedTextToolbar> {
   void initState() {
     super.initState();
     widget.clipboardStatus?.addListener(_onChangedClipboardStatus);
-    widget.clipboardStatus?.update();
   }
 
   void _onChangedClipboardStatus() {
@@ -145,16 +137,14 @@ class FormattedTextToolbarState extends State<FormattedTextToolbar> {
       ),
       SelectionChangedCause.toolbar,
     );
-    widget.delegate
-        .bringIntoView(widget.delegate.textEditingValue.selection.extent);
+    widget.delegate.bringIntoView(widget.delegate.textEditingValue.selection.extent);
     widget.delegate.hideToolbar();
   }
 
   @override
   Widget build(BuildContext context) {
     assert(debugCheckHasMaterialLocalizations(context));
-    final MaterialLocalizations localizations =
-        MaterialLocalizations.of(context);
+    final MaterialLocalizations localizations = MaterialLocalizations.of(context);
     return TextSelectionToolbar(
       anchorAbove: widget.anchorAbove,
       anchorBelow: widget.anchorBelow,
@@ -189,8 +179,7 @@ class FormattedTextToolbarState extends State<FormattedTextToolbar> {
             label: localizations.selectAllButtonLabel,
             onPressed: widget.handleSelectAll!,
           ),
-        for (final item in widget.items ??
-            FormattedTextDefaults.formattedTextToolbarDefaultActions)
+        for (final item in widget.items ?? FormattedTextDefaults.formattedTextToolbarDefaultActions)
           _buildToolbarButton(
             label: item.label,
             patternChars: item.patternChars,

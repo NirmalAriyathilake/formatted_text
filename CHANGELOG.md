@@ -1,3 +1,8 @@
+## 3.0.1
+
+* Fix compile errors with Flutter 3.13 (https://github.com/NirmalAriyathilake/formatted_text/issues/4)
+
+
 ## 3.0.0
 
 * Multi-styling substring

@@ -2,12 +2,12 @@ name: formatted_text
 description: >
   A simple text formatting package.
   Use to format text in TextField and Text widgets
-version: 3.0.0
+version: 3.0.1
 homepage: https://github.com/NirmalAriyathilake/formatted_text
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=1.17.0"
+  sdk: ">=2.12.0 <4.0.0"
+  flutter: ">=3.13.0"
 
 dependencies:
   equatable: ^2.0.5
