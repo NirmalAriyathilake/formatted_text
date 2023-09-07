@@ -167,4 +167,4 @@ Please file any issues, bugs or feature requests as an issue on our [GitHub](htt
 
 ## Author
 
-This Country IP package is developed by [NirmalCode](https://nirmalcode.com).
+This Formatted Text package is developed by [NirmalCode](https://nirmalcode.com).

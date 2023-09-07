@@ -1,3 +1,9 @@
+## 3.1.0
+
+* Fix: Compile error with Flutter 3.13.0 and above
+* Update min Flutter sdk version to 3.13.0
+* Update min Dart sdk version to 3.1.0
+
 ## 3.0.0
 
 * Multi-styling substring
