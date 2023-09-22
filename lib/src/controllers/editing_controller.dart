@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-import '../models/text_formatter.dart';
+import '../models/formatter.dart';
 import '../utils/utils.dart';
 
 class FormattedTextEditingController extends TextEditingController {

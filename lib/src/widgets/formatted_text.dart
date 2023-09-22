@@ -2,7 +2,7 @@ import 'dart:ui' as ui show TextHeightBehavior;
 
 import 'package:flutter/material.dart';
 
-import '../models/text_formatter.dart';
+import '../models/formatter.dart';
 import '../utils/utils.dart';
 
 class FormattedText extends StatelessWidget {
