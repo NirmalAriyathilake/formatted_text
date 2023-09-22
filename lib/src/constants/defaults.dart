@@ -1,10 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import '../models/text_formatter.dart';
+import '../models/context_menu_item.dart';
+import '../models/formatter.dart';
 import '../models/toolbar_action.dart';
 
 mixin FormattedTextDefaults {
+  static const List<FormattedTextContextMenuItem>
+      formattedTextDefaultContextMenuItems = [
+    FormattedTextContextMenuItem(
+      patternChars: '*',
+      label: 'Bold',
+    ),
+    FormattedTextContextMenuItem(
+      patternChars: '_',
+      label: 'Italic',
+    ),
+    FormattedTextContextMenuItem(
+      patternChars: '~',
+      label: 'Strikethrough',
+    ),
+    FormattedTextContextMenuItem(
+      patternChars: '#',
+      label: 'Underline',
+    ),
+  ];
+
   static const List<FormattedTextFormatter> formattedTextDefaultFormatters = [
     FormattedTextFormatter(
       patternChars: '*',

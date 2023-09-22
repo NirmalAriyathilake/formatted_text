@@ -1,3 +1,9 @@
+## 4.0.0
+
+* Requires Dart `^3.1.0`
+* Requires Flutter `^3.13.0`
+* Deprecated : `FormattedTextSelectionControls` in favor of `FormattedTextContextMenuBuilder`
+
 ## 3.1.0
 
 * Fix: Compile error with Flutter 3.13.0 and above

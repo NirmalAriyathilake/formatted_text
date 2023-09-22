@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants/defaults.dart';
-import '../models/text_formatter.dart';
+import '../models/formatter.dart';
 
 mixin FormattedTextUtils {
   static List<InlineSpan> formattedSpans(

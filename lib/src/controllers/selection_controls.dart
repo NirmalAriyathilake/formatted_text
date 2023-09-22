@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import '../constants/defaults.dart';
 import '../models/toolbar_action.dart';
 
+@Deprecated(
+  'Use `FormattedTextContextMenuBuilder` instead. '
+  'This feature was deprecated after v3.1.0',
+)
 class FormattedTextSelectionControls extends MaterialTextSelectionControls {
   FormattedTextSelectionControls({
     this.actions,
