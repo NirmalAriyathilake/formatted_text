@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import '../models/context_menu_item.dart';
-import '../models/formatter.dart';
-import '../models/toolbar_action.dart';
+import '../../formatted_text.dart';
 
 mixin FormattedTextDefaults {
   static const List<FormattedTextContextMenuItem>
@@ -64,4 +62,16 @@ mixin FormattedTextDefaults {
       label: 'Underline',
     ),
   ];
+
+  static List<ContextMenuButtonItem> formattedTextDefaultContextMenuButtonItems(
+          EditableTextState editableTextState) =>
+      formattedTextDefaultContextMenuItems
+          .map(
+            (item) =>
+                FormattedTextContextMenuBuilder.buildContextMenuButtonItem(
+              editableTextState: editableTextState,
+              item: item,
+            ),
+          )
+          .toList();
 }
