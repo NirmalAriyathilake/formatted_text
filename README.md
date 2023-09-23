@@ -6,6 +6,7 @@
 - [Usage examples](#usage-examples)
   - [Text View](#text-view)
   - [Text Editing Controller](#text-editing-controller)
+  - [Context Menu Builder](#context-menu-builder)
   - [Selection controls](#selection-controls)
   - [Custom Formatters](#custom-formatters)
   - [Custom Toolbar Actions](#custom-toolbar-actions)
@@ -88,6 +89,8 @@ FormattedText('_This is *Bold Italic* Italic_');
 
 ![Multistyling substring Image](https://github.com/NirmalAriyathilake/formatted_text/blob/main/resources/multistyling_substring.png?raw=true)
 
+#
+
 ### Text Editing Controller
 
 ```dart
@@ -99,6 +102,96 @@ or with hooks
 ```dart
 final textEditingController = useFormattedTextController();
 ```
+
+#
+
+### Custom Formatters
+
+- Providing custom formatters will override the default formatters.
+
+```dart
+FormattedText(
+  '==This text is orange==',
+  formatters: [
+    ... FormattedTextDefaults.formattedTextDefaultFormatters, // To add default formatters
+    FormattedTextFormatter(
+      patternChars: '==', // Pattern char(s)
+      style: TextStyle(color: Colors.orange),
+    )
+  ],
+)
+```
+
+#
+
+### Context Menu Builder
+
+To get adaptive text selection toolbar with default formatter menu items,
+
+```dart
+contextMenuBuilder: (BuildContext context,
+    EditableTextState editableTextState) {
+  return FormattedTextContextMenuBuilder
+    .adaptiveTextSelectionToolbar(
+      editableTextState: editableTextState);
+}
+```
+
+### Custom Context Menu Builder Items
+
+- Providing custom menu items will override the default formatter items.
+- Don't escape `patternChars`.
+
+```dart
+contextMenuBuilder: (BuildContext context,
+    EditableTextState editableTextState) {
+  return FormattedTextContextMenuBuilder
+      .adaptiveTextSelectionToolbar(
+    editableTextState: editableTextState,
+    items: [
+      ...FormattedTextDefaults
+          .formattedTextDefaultContextMenuItems, // Default formatters
+      const FormattedTextContextMenuItem(
+        label: 'Orange',
+        patternChars: '==',
+      ),
+    ],
+  );
+},
+```
+
+Or
+
+- Use context menu button items
+
+```dart
+contextMenuBuilder: (BuildContext context,
+    EditableTextState editableTextState) {
+  return AdaptiveTextSelectionToolbar.buttonItems(
+    anchors: editableTextState.contextMenuAnchors,
+    buttonItems: [
+      ...editableTextState.contextMenuButtonItems,
+      ...FormattedTextDefaults
+          .formattedTextDefaultContextMenuButtonItems(
+              editableTextState),
+      FormattedTextContextMenuBuilder
+          .buildContextMenuButtonItem(
+        editableTextState: editableTextState,
+        item: const FormattedTextContextMenuItem(
+          label: 'Orange',
+          patternChars: '==',
+        ),
+      ),
+    ],
+  );
+}
+```
+
+#
+
+### [DEPRECATED]
+
+Use [Context Menu Builder](#context-menu-builder)
 
 ### Selection controls
 
@@ -116,23 +209,6 @@ toolbarOptions: ToolbarOptions(
   copy: false,
   paste: false,
   selectAll: true,
-)
-```
-
-### Custom Formatters
-
-- Providing custom formatters will override the default formatters.
-
-```dart
-FormattedText(
-  '==This text is orange==',
-  formatters: [
-    ... FormattedTextDefaults.formattedTextDefaultFormatters, // To add default formatters
-    FormattedTextFormatter(
-      patternChars: '==', // Pattern char(s)
-      style: TextStyle(color: Colors.orange),
-    )
-  ],
 )
 ```
 

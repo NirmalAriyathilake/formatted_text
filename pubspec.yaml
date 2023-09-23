@@ -2,7 +2,7 @@ name: formatted_text
 description: >
   A simple text formatting package.
   Use to format text in TextField and Text widgets
-version: 4.0.0
+version: 4.0.1
 homepage: https://github.com/NirmalAriyathilake/formatted_text
 
 environment:
